@@ -76,6 +76,24 @@
       "script": "scripts/centos-install-pe-puppet-382.sh"
     },
     {
+      "type": "file",
+      "source": "files/facter/",
+      "destination": "/opt/puppet/lib/ruby/site_ruby/1.9.1/facter"
+    },
+    {
+      "type": "shell",
+      "inline": ["mkdir -p /etc/puppetlabs/puppet/environment/production/manifests/; puppet module install razorsedge-network; puppet module install saz-resolv_conf"]
+    },
+    {
+      "type": "file",
+      "source": "manifests/vapp_properties.pp",
+      "destination": "/etc/puppetlabs/puppet/environment/production/manifests/vapp_properties.pp"
+    },
+    {
+      "type": "shell",
+      "inline": ["echo '/opt/puppet/bin/puppet apply /etc/puppetlabs/puppet/environment/production/manifests/install-zombie.pp' >> /etc/rc.d/rc.local"]
+    },
+    {
       "type": "shell",
       "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
       "script": "scripts/centos-vmware-cleanup.sh"

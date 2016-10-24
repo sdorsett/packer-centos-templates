@@ -15,10 +15,10 @@ echo "###### build the vuaas packer template - vuaas-deploy-$VERSION-$PADDEDBUIL
 packer build -var-file=/root/packer-remote-info.json templates/centos-6.8-pe-puppet-3.8.2.json
 
 echo "###### add vapp properties to .ovf file ######"
-sed -i -e '/  <\/VirtualSystem>/d' vuaas-template/vuaas-template/vuaas-template.ovf
-sed -i -e '/<\/Envelope>/d' vuaas-template/vuaas-template/vuaas-template.ovf
-sed -i -e 's/<VirtualHardwareSection>/<VirtualHardwareSection ovf:transport="com.vmware.guestInfo">/g' vuaas-template/vuaas-template/vuaas-template.ovf
-cat << EOF >> vuaas-template/vuaas-template/vuaas-template.ovf
+sed -i -e '/  <\/VirtualSystem>/d' centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf
+sed -i -e '/<\/Envelope>/d' centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf
+sed -i -e 's/<VirtualHardwareSection>/<VirtualHardwareSection ovf:transport="com.vmware.guestInfo">/g' centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf
+cat << EOF >> centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf
     <ProductSection>
       <Info>Information about the installed software</Info>
       <Category>Network</Category>
@@ -60,7 +60,7 @@ cat << EOF >> vuaas-template/vuaas-template/vuaas-template.ovf
 EOF
 
 echo "###### convert the multiple exported .ovf files to a single .ova file ######"
-ovftool --skipManifestCheck centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf /root/packer-build-artifacts/vuaas-deploy-$VERSION-$PADDEDBUILD.ova
+ovftool --skipManifestCheck centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf /root/packer-build-artifacts/centos-68-pe-puppet-382-$VERSION-$PADDEDBUILD.ova
 
 #echo "###### clean up build directory ######"
 #rm -rf /root/packer-templates/vuaas-template
