@@ -11,7 +11,7 @@ mkdir iso/
 # 9c1124f1521c6ac079819a5634745426b681912d  /root/install_iso/vmware-tools-linux.iso
 cp /root/packer_iso_files/* iso/
 
-echo "###### build the vuaas packer template ######"
+echo "###### build the vuaas packer template - vuaas-deploy-$VERSION-$PADDEDBUILD.ova ######"
 packer build -var-file=/root/packer-remote-info.json templates/centos-6.8-pe-puppet-3.8.2.json
 
 echo "###### add vapp properties to .ovf file ######"
@@ -60,7 +60,7 @@ cat << EOF >> vuaas-template/vuaas-template/vuaas-template.ovf
 EOF
 
 echo "###### convert the multiple exported .ovf files to a single .ova file ######"
-ovftool --skipManifestCheck vuaas-template/vuaas-template/vuaas-template.ovf /root/packer-build-artifacts/vuaas-deploy-$VERSION-$PADDEDBUILD.ova
+ovftool --skipManifestCheck centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf /root/packer-build-artifacts/vuaas-deploy-$VERSION-$PADDEDBUILD.ova
 
 #echo "###### clean up build directory ######"
 #rm -rf /root/packer-templates/vuaas-template
