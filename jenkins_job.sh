@@ -63,7 +63,6 @@ echo "###### convert the multiple exported .ovf files to a single .ova file ####
 ovftool --skipManifestCheck centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf /root/packer-build-artifacts/centos-68-pe-puppet-382-$VERSION-$PADDEDBUILD.ova
 
 #echo "###### clean up build directory ######"
-#rm -rf /root/packer-templates/vuaas-template
-#rm -rf /root/packer-build-artifacts/vuaas-deploy-$BUILD_NUMBER.ova
-#rm -rf /home/jenkins/workspace/vuaas-packer-build
+rm -rf /root/packer-centos-templates/centos-68-pe-puppet-382
+rm -rf /home/jenkins/workspace/centos-68-pe-puppet-382
 

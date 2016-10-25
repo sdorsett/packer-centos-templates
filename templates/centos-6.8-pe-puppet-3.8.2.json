@@ -91,7 +91,7 @@
     },
     {
       "type": "shell",
-      "inline": ["echo '/opt/puppet/bin/puppet apply /etc/puppetlabs/puppet/environment/production/manifests/install-zombie.pp' >> /etc/rc.d/rc.local"]
+      "inline": ["echo '/opt/puppet/bin/puppet apply /etc/puppetlabs/puppet/environment/production/manifests/vapp_properties.pp' >> /etc/rc.d/rc.local"]
     },
     {
       "type": "shell",
