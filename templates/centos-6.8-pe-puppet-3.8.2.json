@@ -82,7 +82,7 @@
     },
     {
       "type": "shell",
-      "inline": ["mkdir -p /etc/puppetlabs/puppet/environment/production/manifests/; puppet module install razorsedge-network; puppet module install saz-resolv_conf"]
+      "inline": ["mkdir -p /etc/puppetlabs/puppet/environment/production/manifests/; puppet module install razorsedge-network; puppet module install saz-resolv_conf; puppet module install ghoneycutt-hosts --version 2.4.0"]
     },
     {
       "type": "file",
