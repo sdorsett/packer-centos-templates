@@ -1,0 +1,102 @@
+{
+  "variables": {
+    "version": "1.0"
+  },
+  "builders": [
+    {
+      "name": "centos-68-puppet-432",
+      "vm_name": "centos-68-puppet-432",
+      "vmdk_name": "centos-68-puppet-432",
+      "type": "vmware-iso",
+      "communicator": "ssh",
+      "ssh_pty": "true",
+      "headless": false,
+      "disk_size": 16384,
+      "guest_os_type": "rhel6-64",
+      "iso_url": "./iso/CentOS-6.8-x86_64-minimal.iso",
+      "iso_checksum": "28cd663c2267676414496f0929ce7bb285bf2506",
+      "iso_checksum_type": "sha1",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
+
+      "remote_host": "{{user `packer_remote_host`}}",
+      "remote_datastore": "{{user `packer_remote_datastore`}}",
+      "remote_username": "{{user `packer_remote_username`}}",
+      "remote_password": "{{user `packer_remote_password`}}",
+      "remote_type": "esx5",
+      "format": "ovf",
+      "keep_registered": "false",
+      "ssh_username": "root",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "60m",
+      "tools_upload_flavor": "linux",
+      "http_directory": ".",
+      "boot_wait": "7s",
+      "vmx_data": {
+        "memsize": "4096",
+        "numvcpus": "2",
+        "ethernet0.networkName": "{{user `packer_remote_network`}}",
+        "ethernet0.present": "TRUE",
+        "ethernet0.startConnected": "TRUE",
+        "ethernet0.virtualDev": "e1000",
+        "ethernet0.addressType": "generated",
+        "ethernet0.generatedAddressOffset": "0",
+        "ethernet0.wakeOnPcktRcv": "FALSE"
+
+      },
+      "vmx_data_post": {
+        "ide1:0.startConnected": "FALSE",
+        "ide1:0.clientDevice": "TRUE",
+        "ide1:0.fileName": "emptyBackingString",
+        "ethernet0.virtualDev": "vmxnet3"
+      },
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/scripts/centos-6-kickstart.cfg<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "iso/vmware-tools-linux.iso",
+      "destination": "/tmp/vmware-tools-linux.iso"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "scripts/centos-vagrant-settings.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "scripts/centos-vmware-tools_install.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "scripts/centos-install-puppet-432.sh"
+    },
+    {
+      "type": "file",
+      "source": "files/facter/",
+      "destination": "/opt/puppetlabs/facter/facts.d"
+    },
+    {
+      "type": "shell",
+      "inline": ["mkdir -p /etc/puppetlabs/puppet/environment/production/manifests/; puppet module install razorsedge-network; puppet module install saz-resolv_conf; puppet module install ghoneycutt-hosts --version 2.4.0; echo 'export FACTERLIB=\"/opt/puppetlabs/facter/facts.d\"' >> /etc/profile"]
+    },
+    {
+      "type": "file",
+      "source": "manifests/vapp_properties.pp",
+      "destination": "/etc/puppetlabs/puppet/environment/production/manifests/vapp_properties.pp"
+    },
+    {
+      "type": "shell",
+      "inline": ["echo 'export FACTERLIB=\"/opt/puppetlabs/facter/facts.d\"; /opt/puppetlabs/puppet/bin/puppet apply /etc/puppetlabs/puppet/environment/production/manifests/vapp_properties.pp' >> /etc/rc.d/rc.local"]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "scripts/centos-vmware-cleanup.sh"
+    }
+  ]
+}

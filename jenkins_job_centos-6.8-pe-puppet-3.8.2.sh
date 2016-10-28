@@ -11,7 +11,7 @@ mkdir iso/
 # 9c1124f1521c6ac079819a5634745426b681912d  /root/install_iso/vmware-tools-linux.iso
 cp /root/packer_iso_files/* iso/
 
-echo "###### build the vuaas packer template - vuaas-deploy-$VERSION-$PADDEDBUILD.ova ######"
+echo "###### build the vuaas packer template - centos-68-pe-puppet-382-$VERSION-$PADDEDBUILD.ova ######"
 packer build -var-file=/root/packer-remote-info.json templates/centos-6.8-pe-puppet-3.8.2.json
 
 echo "###### add vapp properties to .ovf file ######"
@@ -59,10 +59,13 @@ cat << EOF >> centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppe
 </Envelope>
 EOF
 
+#echo "###### delete centos-68-pe-puppet-382-$VERSION-$PADDEDBUILD.ova if it exists ######"
+rm -rf /root/packer-build-artifacts/centos-68-pe-puppet-382-$VERSION-$PADDEDBUILD.ova
+
 echo "###### convert the multiple exported .ovf files to a single .ova file ######"
 ovftool --skipManifestCheck centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf /root/packer-build-artifacts/centos-68-pe-puppet-382-$VERSION-$PADDEDBUILD.ova
 
-#echo "###### clean up build directory ######"
+echo "###### clean up build directory ######"
 rm -rf /root/packer-centos-templates/centos-68-pe-puppet-382
 rm -rf /home/jenkins/workspace/centos-68-pe-puppet-382
 
