@@ -1,6 +1,6 @@
 #!/bin/bash
-
-rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-6.noarch.rpm
+CENTOS_VERSION=`cat /etc/centos-release | cut -d" " -f3 | cut -d "." -f1`
+rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-${CENTOS_VERSION}.noarch.rpm
 yum install puppet-agent-1.3.6 -y
 
 # Remove certname so the system will use host FQDN

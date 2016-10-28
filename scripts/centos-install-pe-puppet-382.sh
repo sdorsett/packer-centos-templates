@@ -1,7 +1,8 @@
 #!/bin/bash
 
+CENTOS_VERSION=`cat /etc/centos-release | cut -d" " -f3 | cut -d "." -f1`
 VERSION='3.8.2'
-PKGNAME="puppet-enterprise-${VERSION}-el-6-x86_64"
+PKGNAME="puppet-enterprise-${VERSION}-el-${CENTOS_VERSION}-x86_64"
 TARFILE="${PKGNAME}.tar.gz"
 #URL="http://10.144.32.139/packages/${TARFILE}"
 URL="https://pm.puppetlabs.com/puppet-enterprise/${VERSION}/${TARFILE}"
