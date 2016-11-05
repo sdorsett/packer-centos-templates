@@ -70,5 +70,5 @@ ovftool --skipManifestCheck centos-68-puppet-432/centos-68-puppet-432/centos-68-
 
 echo "###### clean up build directory ######"
 rm -rf /root/packer-centos-templates/centos-68-puppet-432
-rm -rf /home/jenkins/workspace/centos-68-puppet-432
+rm -rf /home/jenkins/workspace/centos-packer-templates/centos-68-puppet-432
 

@@ -9,5 +9,10 @@ node ('packer.clifflabs.local') {
       echo "Build CentOS 6.8 Puppet Enterprise 3.8.2 template"
       sh "./jenkins_job_centos-6.8-pe-puppet-3.8.2.sh" 
     }
+    stage ('Clean up workspace') {
+      echo "Clean up workspace"
+      sh "rm -rf /home/jenkins/workspace/centos-packer-templates"
+    }
     echo "Builds completed"
+
 }
