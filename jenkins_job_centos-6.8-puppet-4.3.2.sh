@@ -21,6 +21,9 @@ sed -i -e 's/<VirtualHardwareSection>/<VirtualHardwareSection ovf:transport="com
 cat << EOF >> centos-68-puppet-432/centos-68-puppet-432/centos-68-puppet-432.ovf
     <ProductSection>
       <Info>Information about the installed software</Info>
+      <Product>centos-68-puppet-432</Product>
+      <Version>$VERSION</Version>
+      <FullVersion>$VERSION-$PADDEDBUILD</FullVersion>
       <Category>Network</Category>
       <Property ovf:key="hostname" ovf:type="string" ovf:userConfigurable="true">
         <Label>hostname</Label>

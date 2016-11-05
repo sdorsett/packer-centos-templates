@@ -21,6 +21,9 @@ sed -i -e 's/<VirtualHardwareSection>/<VirtualHardwareSection ovf:transport="com
 cat << EOF >> centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf
     <ProductSection>
       <Info>Information about the installed software</Info>
+      <Product>centos-68-pe-puppet-382</Product>
+      <Version>$VERSION</Version>
+      <FullVersion>$VERSION-$PADDEDBUILD</FullVersion>
       <Category>Network</Category>
       <Property ovf:key="hostname" ovf:type="string" ovf:userConfigurable="true">
         <Label>hostname</Label>
@@ -66,6 +69,6 @@ echo "###### convert the multiple exported .ovf files to a single .ova file ####
 ovftool --skipManifestCheck centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppet-382.ovf /root/packer-build-artifacts/centos-68-pe-puppet-382-$VERSION-$PADDEDBUILD.ova
 
 echo "###### clean up build directory ######"
-rm -rf /root/packer-centos-templates/centos-68-pe-puppet-382
-rm -rf /home/jenkins/workspace/centos-68-pe-puppet-382
+#rm -rf /root/packer-centos-templates/centos-68-pe-puppet-382
+#rm -rf /home/jenkins/workspace/centos-68-pe-puppet-382
 

@@ -10,8 +10,16 @@ URL="https://pm.puppetlabs.com/puppet-enterprise/${VERSION}/${TARFILE}"
 TMPDIR='/tmp'
 HOSTNAME=`hostname`
 cd $TMPDIR
-echo "Fetching ${TARFILE}"
-[ -e $TARFILE ] || curl -fLO $URL
+
+if [ -f $TARFILE ];
+then
+   echo "File $TARFILE exists."
+else
+   echo "File $TARFILE does not exist."
+   echo "Fetching ${TARFILE}"
+   [ -e $TARFILE ] || curl -fLO $URL
+fi
+
 echo "Extracting ${TARFILE}"
 [ -d $PKGNAME ] || tar -xf $TARFILE
 cd $PKGNAME
