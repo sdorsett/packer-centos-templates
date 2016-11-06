@@ -16,6 +16,6 @@ PADDEDBUILD=`printf %04d $BUILD`
 # To make this easier I have these defined in /root/.env and I just source this file:
 source /root/.env
 
-echo "Deploying ${OVA_NAME}-${VERSION}-${PADDEDBUILD}.ova to vcenter ${VSPHERE_HOST}"
+echo "Deploying ${OVA_NAME}-${VERSION}-${PADDEDBUILD}.ova to vcenter ${VSPHERE_HOST} as template-${OVA_NAME}"
 
-ovftool --skipManifestCheck --acceptAllEulas --disableVerification --noSSLVerify --datastore=${VSPHERE_DATASTORE} --network=${VSPHERE_NETWORK} --name=${OVA_NAME} --overwrite /root/packer-build-artifacts/${OVA_NAME}-${VERSION}-${PADDEDBUILD}.ova vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DC}/host/${VSPHERE_CLUSTER}
+ovftool --skipManifestCheck --acceptAllEulas --disableVerification --noSSLVerify --datastore=${VSPHERE_DATASTORE} --network=${VSPHERE_NETWORK} --name=template-${OVA_NAME} --overwrite /root/packer-build-artifacts/${OVA_NAME}-${VERSION}-${PADDEDBUILD}.ova vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DC}/host/${VSPHERE_CLUSTER}
