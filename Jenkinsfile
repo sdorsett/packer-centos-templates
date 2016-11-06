@@ -11,7 +11,7 @@ node ('packer.clifflabs.local') {
     }
     stage ('Clean up workspace') {
       echo "Clean up workspace"
-      sh "rm -rf /home/jenkins/workspace/centos-packer-templates"
+      sh "rm -rf /home/jenkins/*"
     }
     echo "Builds completed"
 
