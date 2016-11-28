@@ -26,7 +26,7 @@
       "format": "ovf",
       "keep_registered": "false",
       "ssh_username": "root",
-      "ssh_password": "vagrant",
+      "ssh_password": "P@ssword123",
       "ssh_wait_timeout": "60m",
       "tools_upload_flavor": "linux",
       "http_directory": ".",
