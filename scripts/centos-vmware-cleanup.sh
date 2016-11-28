@@ -25,7 +25,12 @@ echo "==> Cleaning up udev rules"
 /bin/rm -f /etc/udev/rules.d/70*
 
 echo "==> Remove the traces of the template MAC address and UUIDs"
-/bin/sed -i '/^\(HWADDR\|UUID\)=/d' /etc/sysconfig/network-scripts/ifcfg-eth0
+if [ -f /etc/sysconfig/network-scripts/ifcfg-eth0 ];
+then
+   /bin/sed -i '/^\(HWADDR\|UUID\)=/d' /etc/sysconfig/network-scripts/ifcfg-eth0
+else
+   echo "File /etc/sysconfig/network-scripts/ifcfg-eth0 does not exist."
+fi
 
 echo "==> Cleaning up tmp"
 /bin/rm -rf /tmp/*
@@ -42,8 +47,12 @@ echo "==> yum -y clean all"
 yum -y clean all
 
 echo "==> Zero out the free space to save space in the final image"
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -f /EMPTY
+(dd if=/dev/zero of=/EMPTY bs=1M)>/dev/null 2>&1
+(rm -rf /EMPTY)>/dev/null 2>&1
+#MYVARIABLE="$(dd if=/dev/zero of=/EMPTY bs=1M 2>&1 > /dev/null)"
+#echo $MYVARIABLE
+#MYVARIABLE="$(rm -rf /EMPTY 2>&1 > /dev/null)"
+#echo $MYVARIABLE
 
 # Make sure we wait until all the data is written to disk, otherwise
 # Packer might quit too early before the large files are deleted

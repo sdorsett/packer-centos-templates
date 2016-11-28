@@ -4,19 +4,19 @@
   },
   "builders": [
     {
-      "name": "centos-68-puppet-432",
-      "vm_name": "centos-68-puppet-432",
-      "vmdk_name": "centos-68-puppet-432",
+      "name": "centos-70-puppet-432",
+      "vm_name": "centos-70-puppet-432",
+      "vmdk_name": "centos-70-puppet-432",
       "type": "vmware-iso",
       "communicator": "ssh",
       "ssh_pty": "true",
       "headless": false,
       "disk_size": 16384,
       "guest_os_type": "rhel6-64",
-      "iso_url": "./iso/CentOS-6.8-x86_64-minimal.iso",
-      "iso_checksum": "28cd663c2267676414496f0929ce7bb285bf2506",
+      "iso_url": "./iso/CentOS-7-x86_64-Minimal-1511.iso",
+      "iso_checksum": "783eef50e1fb91c78901d0421d8114a29b998478",
       "iso_checksum_type": "sha1",
-      "shutdown_command": "/sbin/shutdown -P now",
+      "shutdown_command": "sudo -S /usr/sbin/shutdown -h now",
 
       "remote_host": "{{user `packer_remote_host`}}",
       "remote_datastore": "{{user `packer_remote_datastore`}}",
@@ -26,7 +26,7 @@
       "format": "ovf",
       "keep_registered": "false",
       "ssh_username": "root",
-      "ssh_password": "vagrant",
+      "ssh_password": "P@ssword123",
       "ssh_wait_timeout": "60m",
       "tools_upload_flavor": "linux",
       "http_directory": ".",
@@ -50,7 +50,7 @@
         "ethernet0.virtualDev": "vmxnet3"
       },
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/scripts/centos-6-kickstart.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/scripts/centos-7-kickstart.cfg<enter><wait>"
       ]
     }
   ],

@@ -1,5 +1,5 @@
 #!/bin/bash
-CENTOS_VERSION=`cat /etc/centos-release | cut -d" " -f3 | cut -d "." -f1`
+CENTOS_VERSION=`cat /etc/centos-release | sed 's/[^0-9\.]*//g' | cut -d "." -f1`
 rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-${CENTOS_VERSION}.noarch.rpm
 yum install puppet-agent-1.3.6 -y
 

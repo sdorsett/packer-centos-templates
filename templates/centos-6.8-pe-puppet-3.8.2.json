@@ -16,7 +16,7 @@
       "iso_url": "./iso/CentOS-6.8-x86_64-minimal.iso",
       "iso_checksum": "28cd663c2267676414496f0929ce7bb285bf2506",
       "iso_checksum_type": "sha1",
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
+      "shutdown_command": "/sbin/shutdown -P now",
 
       "remote_host": "{{user `packer_remote_host`}}",
       "remote_datastore": "{{user `packer_remote_datastore`}}",
@@ -26,7 +26,7 @@
       "format": "ovf",
       "keep_registered": "false",
       "ssh_username": "root",
-      "ssh_password": "vagrant",
+      "ssh_password": "P@ssword123",
       "ssh_wait_timeout": "60m",
       "tools_upload_flavor": "linux",
       "http_directory": ".",
@@ -62,17 +62,10 @@
     },
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-      "script": "scripts/centos-vagrant-settings.sh"
-    },
-    {
-      "type": "shell",
-      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
       "script": "scripts/centos-vmware-tools_install.sh"
     },
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
       "script": "scripts/centos-install-pe-puppet-382.sh"
     },
     {
@@ -95,7 +88,7 @@
     },
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
       "script": "scripts/centos-vmware-cleanup.sh"
     }
   ]
