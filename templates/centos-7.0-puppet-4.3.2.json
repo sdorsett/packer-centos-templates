@@ -62,7 +62,7 @@
     },
     {
       "type": "shell",
-      "script": "scripts/centos-vmware-tools_install.sh"
+      "script": "scripts/centos-7-vmware-tools_install.sh"
     },
     {
       "type": "shell",
