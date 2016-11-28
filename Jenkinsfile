@@ -16,6 +16,10 @@ node ('packer.clifflabs.local') {
       sh "jenkins_scripts/packer_build_centos-7.0-puppet-4.3.2.sh"
       sh "OVA_NAME='centos-70-puppet-432' jenkins_scripts/vcenter_deploy_ova.sh"
     }
+    stage ('clean up workspace') {
+      echo "running 'rm -rf /home/jenkins/workspace/centos-packer-templates/*'"
+      sh "rm -rf /home/jenkins/workspace/centos-packer-templates/*"
+    }
     echo "Builds completed"
 
 }
