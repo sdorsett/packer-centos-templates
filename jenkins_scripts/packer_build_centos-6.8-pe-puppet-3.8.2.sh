@@ -49,10 +49,6 @@ cat << EOF >> centos-68-pe-puppet-382/centos-68-pe-puppet-382/centos-68-pe-puppe
         <Label>domain</Label>
         <Description>(optional) search domain</Description>
       </Property>
-      <Property ovf:key="interface" ovf:type="string" ovf:userConfigurable="true" ovf:value="eth0">
-        <Label>interface</Label>
-        <Description>(optional) interface; example: eth0</Description>
-      </Property>
       <Property ovf:key="puppetmaster" ovf:type="string" ovf:userConfigurable="true">
         <Label>puppetmaster</Label>
         <Description>(optional) fully-qualified domain name of the puppet master that will configure this system</Description>

@@ -1,7 +1,7 @@
 require 'facter'
 
   Facter.add(:vapp_interface) do
-    output = `/usr/sbin/vmtoolsd --cmd "info-get guestinfo.ovfEnv" | awk -F'\"' ' /interface/ {print $4}'`
+    output = `ip a | grep mtu | grep -v lo | cut -d " " -f2 | cut -d ":" -f1`
 
     if output != "" && output != nil
       setcode do
